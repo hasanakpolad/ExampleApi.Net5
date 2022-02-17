@@ -12,5 +12,7 @@ namespace ExampleApi.Net5.Data.Entities
         public string UserName { get; set; }
         public string UserMail { get; set; }
         public string UserPassword { get; set; }
+
+        public List<Product> Products { get; set; }
     }
 }
