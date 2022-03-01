@@ -23,7 +23,7 @@ namespace ExampleApi.Net5.Data.Context
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().HasMany(x => x.Users).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+            modelBuilder.Entity<User>().HasMany(x => x.Products).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             base.OnModelCreating(modelBuilder);
         }
     }
