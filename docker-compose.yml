@@ -1,6 +1,6 @@
 version: '3.3'
 services:
   exampleApi:
-    image: hub.docker.com/hsnakpld/first_demo
+    image: hsnakpld/first_demo:latest
     ports:
       - '11000:80'
