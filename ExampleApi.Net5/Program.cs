@@ -21,6 +21,7 @@ namespace ExampleApi.Net5
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseUrls();
                 });
     }
 }

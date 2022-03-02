@@ -3,4 +3,6 @@ services:
   exampleApi:
     image: hsnakpld/first_demo:latest
     ports:
-      - '11000:80'
+      - '5000:80'
+    environment:
+      - ASPNETCORE_URLS=http://+:80
