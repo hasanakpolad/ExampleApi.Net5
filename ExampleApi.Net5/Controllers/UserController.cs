@@ -1,4 +1,7 @@
-﻿using ExampleApi.Net5.Data.Entities;
+﻿using ExampleApi.Net5.Business.UserService;
+using ExampleApi.Net5.Data.Dto;
+using ExampleApi.Net5.Data.Entities;
+using ExampleApi.Net5.DataAccess.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleApi.Net5.Controllers
@@ -7,30 +10,95 @@ namespace ExampleApi.Net5.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly IUserService userService;
+        public UserController(IUserService _userService)
+        {
+            userService = _userService;
+        }
         [HttpGet(nameof(GetUserById) + "/{userId}")]
         public IActionResult GetUserById(int userId)
         {
-            return Ok();
+            try
+            {
+                userService.Get(userId);
+                return Ok();
+
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpGet(nameof(GetAll))]
         public IActionResult GetAll()
         {
-            return Ok();
+            try
+            {
+                var data = userService.GetAll();
+                return Ok(data);
+
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPost(nameof(AddUser))]
-        public IActionResult AddUser(User model)
+        public IActionResult AddUser(UserDto model)
         {
-            return Ok();
+            try
+            {
+                if (model != null)
+                {
+                    userService.Add(model);
+                    return Ok();
+                }
+                else
+                    return BadRequest();
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPut(nameof(UpdateUser))]
-        public IActionResult UpdateUser(User model)
+        public IActionResult UpdateUser(UserDto model)
         {
-            return Ok();
+            try
+            {
+                if (model != null)
+                {
+                    userService.Update(model);
+                    return Ok(model);
+                }
+                else
+                    return BadRequest();
+
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpDelete(nameof(DeleteUser) + "/{userId}")]
         public IActionResult DeleteUser(int userId)
         {
-            return Ok();
+            try
+            {
+                var model = userService.Get(userId);
+                if (model != null)
+                {
+                    userService.Delete(model);
+                    return Ok(model);
+                }
+                else
+                    return BadRequest();
+
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ProductService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExampleApi.Net5.DataAccess\ExampleApi.Net5.DataAccess.csproj" />
+    <ProjectReference Include="..\ExampleApi.Net5.Data\ExampleApi.Net5.Data.csproj" />
+  </ItemGroup>
+
+</Project>

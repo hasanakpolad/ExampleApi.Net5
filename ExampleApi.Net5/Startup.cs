@@ -1,4 +1,9 @@
+using AutoMapper;
+using ExampleApi.Net5.Business.Mapper;
+using ExampleApi.Net5.Business.UserService;
+using ExampleApi.Net5.Controllers;
 using ExampleApi.Net5.Data.Context;
+using ExampleApi.Net5.DataAccess.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ExampleApi.Net5
@@ -30,6 +36,8 @@ namespace ExampleApi.Net5
 
             services.AddControllers();
             services.AddDbContext<MasterContext>(x => x.UseMySQL("Server=localhost;Database=newDb;Uid=root;Pwd=root;"));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddSingleton<IUserService, UserService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExampleApi.Net5", Version = "v1" });
@@ -43,8 +51,8 @@ namespace ExampleApi.Net5
             {
                 app.UseDeveloperExceptionPage();
             }
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExampleApi.Net5 v1"));
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExampleApi.Net5 v1"));
 
             app.UseRouting();
 

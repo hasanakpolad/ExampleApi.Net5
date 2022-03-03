@@ -7,13 +7,12 @@ namespace ExampleApi.Net5.DataAccess.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
+        private DbContext dbContext;
+        public DbContext DbContext => dbContext ?? (dbContext = new MasterContext());
         public UnitOfWork()
         {
 
         }
-        private DbContext dbContext;
-
-        public DbContext DbContext => dbContext ?? (dbContext = new MasterContext());
         public void Dispose()
         {
             DbContext.Dispose();
@@ -22,7 +21,7 @@ namespace ExampleApi.Net5.DataAccess.UnitOfWork
 
         public IRepository<T> GetRepository<T>() where T : class
         {
-            return new Repository<T>(dbContext);
+            return new Repository<T>(DbContext);
         }
 
         public int SaveChanges()
