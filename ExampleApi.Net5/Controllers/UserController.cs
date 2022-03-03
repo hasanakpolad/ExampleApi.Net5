@@ -24,7 +24,7 @@ namespace ExampleApi.Net5.Controllers
                 return Ok();
 
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
