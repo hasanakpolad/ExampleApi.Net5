@@ -36,7 +36,7 @@ namespace ExampleApi.Net5
 
             services.AddControllers();
             services.AddDbContext<MasterContext>(x => x.UseMySQL("Server=localhost;Database=newDb;Uid=root;Pwd=root;"));
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IUserService, UserService>();
             services.AddSwaggerGen(c =>
             {
