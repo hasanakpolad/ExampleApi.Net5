@@ -1,4 +1,5 @@
-﻿using ExampleApi.Net5.Business.UserService;
+﻿using ExampleApi.Net5.Business.Authentications;
+using ExampleApi.Net5.Business.UserService;
 using ExampleApi.Net5.Data.Dto;
 using ExampleApi.Net5.Data.Entities;
 using ExampleApi.Net5.DataAccess.UnitOfWork;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExampleApi.Net5.Controllers
 {
     [ApiController]
+    [BasicAuthentication]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
