@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ExampleApi.Net5.Business.UserService;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExampleApi.Net5.Business.Authentications
 {
@@ -15,6 +17,8 @@ namespace ExampleApi.Net5.Business.Authentications
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            var ser = context.HttpContext.RequestServices.GetService<IUserService>();
+            ser.Get(context.HttpContext.Request.Query.)
             var auth = context.HttpContext.Request.Headers["Authorization"].ToString();
 
             if (string.IsNullOrWhiteSpace(auth))
@@ -22,7 +26,7 @@ namespace ExampleApi.Net5.Business.Authentications
                 context.Result = new UnauthorizedResult();
                 return;
             }
-           
+
             var decodeUserAndPass = auth.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries)[1]?.Trim();
             var encodeUser = Encoding.UTF8.GetString(Convert.FromBase64String(decodeUserAndPass));
 
