@@ -14,6 +14,8 @@ namespace ExampleApi.Net5.Business.Mapper
         public AutoMapperDto()
         {
             CreateMap<User, UserDto>();
+
+            CreateMap<UserDto, User>();
         }
     }
 }
