@@ -18,7 +18,6 @@ namespace ExampleApi.Net5.Business.Authentications
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var ser = context.HttpContext.RequestServices.GetService<IUserService>();
-            //ser.Get(context.HttpContext.Request.Query.)
             var auth = context.HttpContext.Request.Headers["Authorization"].ToString();
 
             if (string.IsNullOrWhiteSpace(auth))
